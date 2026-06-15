@@ -1,0 +1,13 @@
+[project]
+name = "daily-weather"
+version = "0.1.0"
+description = "每日获取苏州+江阴天气并通过飞书群机器人推送"
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.31",
+    "python-dotenv>=1.0",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
