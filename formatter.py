@@ -4,7 +4,7 @@
 """
 
 from datetime import datetime
-from weather import CityWeather
+from weather import CityWeather, DailyForecast
 
 # 天气图标 → 飞书 compatible emoji
 WEATHER_EMOJI: dict[str, str] = {
