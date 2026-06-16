@@ -10,6 +10,7 @@ import argparse
 import logging
 import sys
 import os
+from datetime import datetime, timezone, timedelta
 
 from dotenv import load_dotenv
 
@@ -58,7 +59,23 @@ def main() -> None:
         action="store_true",
         help="仅抓取数据并打印卡片 JSON，不推送",
     )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="忽略时间检查，强制推送（用于手动测试）",
+    )
     args = parser.parse_args()
+
+    config = load_config()
+
+    # 时间检查：只在北京时间 08:00~09:00 之间运行（主窗口 08:30）
+    # 避免每30分钟的 cron 在其他时间也发送
+    if not args.dry_run and not args.force:
+        from datetime import timezone, timedelta
+        now_bj = datetime.now(timezone(timedelta(hours=8)))
+        if not (8 <= now_bj.hour < 9):
+            logger.info(f"当前北京时间 {now_bj.hour}:{now_bj.minute:02d}，非推送时段，自动跳过")
+            return
 
     config = load_config()
 
