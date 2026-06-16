@@ -1,27 +1,25 @@
-name: 每日天气推送
+name: Daily Weather Push
 
 on:
   schedule:
-    # 北京时间 08:30 = UTC 00:30
     - cron: "30 0 * * *"
-  workflow_dispatch:  # 支持手动触发
+  workflow_dispatch:
 
 jobs:
   weather-push:
     runs-on: ubuntu-latest
     steps:
-      - name: 检出代码
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: 设置 Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: 安装依赖
+      - name: Install deps
         run: pip install requests python-dotenv
 
-      - name: 获取天气并推送到飞书
+      - name: Fetch weather and push to Feishu
         env:
           FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
         run: python main.py
