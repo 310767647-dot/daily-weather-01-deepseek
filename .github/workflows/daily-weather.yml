@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: "*/30 * * * *"
   workflow_dispatch:
+    inputs:
+      force:
+        description: "Force push (ignore time check)"
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   weather-push:
@@ -22,4 +28,10 @@ jobs:
       - name: Fetch weather and push to Feishu
         env:
           FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
-        run: python main.py
+          FORCE: ${{ github.event.inputs.force || 'false' }}
+        run: |
+          if [ "$FORCE" = "true" ]; then
+            python main.py --force
+          else
+            python main.py
+          fi
