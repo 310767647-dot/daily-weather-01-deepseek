@@ -1,8 +1,6 @@
 name: Daily Weather Push
 
 on:
-  schedule:
-    - cron: "*/30 * * * *"
   workflow_dispatch:
     inputs:
       force:
