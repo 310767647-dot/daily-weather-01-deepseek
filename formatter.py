@@ -138,13 +138,31 @@ def build_weather_card(
         },
     }
 
+    # --- 天气查询按钮 ---
+    query_button = {
+        "tag": "action",
+        "actions": [
+            {
+                "tag": "button",
+                "text": {"tag": "plain_text", "content": "🔍 天气查询  点击查任意城市天气"},
+                "type": "default",
+                "multi_url": {
+                    "url": "https://wttr.in",
+                    "pc_url": "",
+                    "android_url": "",
+                    "ios_url": "",
+                },
+            }
+        ],
+    }
+
     # --- 脚注 ---
     footer = {
         "tag": "note",
         "elements": [
             {
                 "tag": "plain_text",
-                "content": f"⏱ 数据更新于 {now.strftime('%H:%M')}  ·  数据来源：和风天气",
+                "content": f"⏱ 数据更新于 {now.strftime('%H:%M')}  ·  数据来源：wttr.in",
             }
         ],
     }
@@ -155,6 +173,7 @@ def build_weather_card(
             {"tag": "column_set", "flex_mode": "none", "background_style": "default", "columns": columns},
             divider,
             forecast_block,
+            query_button,
             footer,
         ],
     }
