@@ -147,7 +147,7 @@ def build_weather_card(
                 "text": {"tag": "plain_text", "content": "🔍 天气查询  点击查任意城市天气"},
                 "type": "default",
                 "multi_url": {
-                    "url": "https://wttr.in",
+                    "url": "https://www.weather.com.cn",
                     "pc_url": "",
                     "android_url": "",
                     "ios_url": "",
